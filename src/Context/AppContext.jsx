@@ -208,6 +208,29 @@ const processFile = async (file, targetForm, format) => {
       throw error;
     }
   };
+
+  const deleteUser = async (email) => {
+    try {
+      const response = await fetch(`https://api-integral-energia.onrender.com/delete-user?email=${encodeURIComponent(email)}`, {
+        method: 'DELETE',
+        headers: {
+          'accept': '*/*'
+        }
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Falha ao excluir usuário');
+      }
+  
+      toast.success('Usuário excluído com sucesso!');
+      await updateUsersList();
+    } catch (error) {
+      toast.error(`Erro ao excluir usuário: ${error.message}`);
+      throw error;
+    }
+  };
+  
   
   const value = {
     users,
@@ -222,7 +245,8 @@ const processFile = async (file, targetForm, format) => {
     logout,
     requestPasswordReset,
     resetPassword,
-    processFile
+    processFile,
+    deleteUser
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
