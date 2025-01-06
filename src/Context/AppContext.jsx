@@ -156,6 +156,58 @@ export function AppProvider({ children }) {
       throw error;
     }
   };
+
+const processFile = async (file, targetForm, format) => {
+    if (!file || !targetForm) {
+      toast.error('Por favor, selecione um arquivo e um formulário de destino.');
+      return null;
+    }
+  
+    try {
+      // Cria o FormData para enviar o arquivo e o formato
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('format', format);
+  
+      // Log para debug
+      console.log('Arquivo:', file.name);
+      console.log('Formato:', format);
+      console.log('FormData entries:', Array.from(formData.entries()));
+  
+      // Faz a requisição para o backend
+      const response = await fetch(`https://integralenergia.onrender.com/gerar/aneel/${format}`, {
+        method: 'POST',
+        body: formData,
+      });
+  
+      // Verifica se a resposta é válida
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Erro na resposta da API: ${errorText}`);
+      }
+  
+      // Recebe o arquivo como Blob
+      const blob = await response.blob();
+  
+      // Cria o link de download
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `documento_gerado.${format}`); // Nome do arquivo
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+  
+      // Exibe mensagem de sucesso
+      toast.success(`Arquivo ${format.toUpperCase()} gerado com sucesso!`);
+      return `Arquivo processado com sucesso no formato ${format.toUpperCase()}`;
+    } catch (error) {
+      console.error('Erro ao processar o arquivo:', error);
+      toast.error(`Erro ao processar o arquivo: ${error.message}`);
+      throw error;
+    }
+  };
   
   const value = {
     users,
@@ -170,6 +222,7 @@ export function AppProvider({ children }) {
     logout,
     requestPasswordReset,
     resetPassword,
+    processFile
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

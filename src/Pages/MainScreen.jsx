@@ -2,11 +2,14 @@ import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FiUpload, FiDownload } from 'react-icons/fi';
 import Header from '../Components/Header';
+import { useApp } from '../Context/AppContext';
+
 export default function Dashboard() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [targetForm, setTargetForm] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const { processFile } = useApp();
 
   const onDrop = useCallback(acceptedFiles => {
     setSelectedFile(acceptedFiles[0]);
@@ -30,11 +33,11 @@ export default function Dashboard() {
     setMessage('');
 
     try {
-      // Simular envio para o backend
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      setMessage(`Arquivo gerado com sucesso no formato ${format.toUpperCase()}.`);
+      await processFile(selectedFile, targetForm, format);
+      setMessage(`Arquivo ${format.toUpperCase()} gerado com sucesso!`);
     } catch (error) {
-      setMessage('Erro ao gerar o arquivo. Por favor, tente novamente.');
+      console.error('Erro ao processar o arquivo:', error);
+      setMessage(`Erro ao processar o arquivo: ${error.message}`);
     } finally {
       setIsLoading(false);
     }
@@ -42,7 +45,7 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <Header userName="João Silva" />
+      <Header />
       <main>
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
           <div className="px-4 py-6 sm:px-0">
@@ -96,14 +99,14 @@ export default function Dashboard() {
                   <FiDownload className="mr-2" /> Baixar PDF
                 </button>
                 <button
-                  onClick={() => handleSubmit('word')}
+                  onClick={() => handleSubmit('docx')}
                   disabled={isLoading}
                   className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 mb-3 sm:mb-0"
                 >
                   <FiDownload className="mr-2" /> Baixar Word
                 </button>
                 <button
-                  onClick={() => handleSubmit('excel')}
+                  onClick={() => handleSubmit('xlsx')}
                   disabled={isLoading}
                   className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
                 >
@@ -129,4 +132,3 @@ export default function Dashboard() {
     </div>
   );
 }
-
