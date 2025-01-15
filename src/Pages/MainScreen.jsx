@@ -85,8 +85,9 @@ export default function Dashboard() {
                 >
                   <option value="">Selecione o formulário de destino</option>
                   <option value="aneel">Formulário Aneel</option>
-                  <option value="memorial">Memorial Descritivo</option>
-                  <option value="termo">Termo de Aceite</option>
+                  <option value="memorial_descritivo">Memorial Descritivo</option>
+                  <option value="termo_de_aceite">Termo de Aceite</option>
+                  <option value="lista_de_rateio">Lista de rateio</option>
                 </select>
               </div>
 

@@ -158,6 +158,7 @@ export function AppProvider({ children }) {
   };
 
 const processFile = async (file, targetForm, format) => {
+  console.log(`modelo: ${targetForm}, formato: ${format}`)
     if (!file || !targetForm) {
       toast.error('Por favor, selecione um arquivo e um formulário de destino.');
       return null;
@@ -175,10 +176,12 @@ const processFile = async (file, targetForm, format) => {
       console.log('FormData entries:', Array.from(formData.entries()));
   
       // Faz a requisição para o backend
-      const response = await fetch(`https://integralenergia.onrender.com/gerar/aneel/${format}`, {
+      const response = await fetch(`https://integralenergia.onrender.com/gerar/${targetForm}/${format}`, {
         method: 'POST',
         body: formData,
       });
+
+      console.log(response)
   
       // Verifica se a resposta é válida
       if (!response.ok) {
