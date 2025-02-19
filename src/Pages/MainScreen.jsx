@@ -88,6 +88,7 @@ export default function Dashboard() {
                   <option value="memorial_descritivo">Memorial Descritivo</option>
                   <option value="termo_de_aceite">Termo de Aceite</option>
                   <option value="lista_de_rateio">Lista de rateio</option>
+                  <option value="formulario_de_solicitacao_de_acesso">Solicitação de acesso</option>
                 </select>
               </div>
 
