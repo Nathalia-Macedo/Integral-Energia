@@ -174,7 +174,7 @@ const processFile = async (file, targetForm, format) => {
       console.log('Arquivo:', file.name);
       console.log('Formato:', format);
       console.log('FormData entries:', Array.from(formData.entries()));
-  
+      console.log(targetForm)
       // Faz a requisição para o backend
       const response = await fetch(`https://integralenergia.onrender.com/gerar/${targetForm}/${format}`, {
         method: 'POST',
@@ -196,7 +196,7 @@ const processFile = async (file, targetForm, format) => {
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', `${targetForm}.${format}`); // Nome do arquivo
+      link.setAttribute('download', `${targetForm}`); // Nome do arquivo
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
