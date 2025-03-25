@@ -196,7 +196,7 @@ const processFile = async (file, targetForm, format) => {
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', `${targetForm}`); // Nome do arquivo
+      link.setAttribute('download',`${targetForm}`); // Nome do arquivo
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
