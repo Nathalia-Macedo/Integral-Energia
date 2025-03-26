@@ -160,7 +160,7 @@ export function AppProvider({ children }) {
   function retornarFormato(concessionaria, tipo) {
     const formularios = {
         edp: {
-            solicitacao_acesso: "pdf",
+            formulario_de_solicitacao_de_acesso: "pdf",
             lista_de_rateio: "xlsm",
             memorial_descritivo: "docx",
             termo_de_aceite: "xlsx"
