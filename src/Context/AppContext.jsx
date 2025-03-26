@@ -157,6 +157,23 @@ export function AppProvider({ children }) {
     }
   };
 
+  function retornarFormato(concessionaria, tipo) {
+    const formularios = {
+        edp: {
+            solicitacao_acesso: "pdf",
+            lista_de_rateio: "xlsm",
+            memorial_descritivo: "docx",
+            termo_de_aceite: "xlsx"
+        },
+        neoenergia_brasilia: {
+            memorial_descritivo: "pdf"
+        }
+    };
+
+    return formularios[concessionaria][tipo];
+}
+
+
 const processFile = async (file, targetForm, format) => {
   console.log(`modelo: ${targetForm}, formato: ${format}`)
     if (!file || !targetForm) {
@@ -196,7 +213,7 @@ const processFile = async (file, targetForm, format) => {
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download',`${targetForm}`); // Nome do arquivo
+      link.setAttribute('download',`${targetForm}.${retornarFormato(format, targetForm)}`); // Nome do arquivo
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
