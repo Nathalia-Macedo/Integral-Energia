@@ -200,7 +200,7 @@ export default function Dashboard() {
         { value: "lista_de_rateio", label: "Lista de Rateio" },
         { value: "formulario_de_solicitacao_de_acesso", label: "Formulário de Solicitação de Acesso" },
       ]
-    } else if (concessionaria === "neoenergia") {
+    } else if (concessionaria === "neoenergia_brasilia") {
       return [
         { value: "formulario_de_solicitacao", label: "Formulário de Solicitação" },
         { value: "memorial_descritivo", label: "Memorial Descritivo" },
