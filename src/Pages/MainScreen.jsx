@@ -200,7 +200,7 @@ export default function Dashboard() {
         { value: "lista_de_rateio", label: "Lista de Rateio" },
         { value: "formulario_de_solicitacao_de_acesso", label: "Formulário de Solicitação de Acesso" },
       ]
-    } else if (concessionaria === "neoenergia_brasilia") {
+    } else if (concessionaria === "neoenergia") {
       return [
         { value: "formulario_de_solicitacao", label: "Formulário de Solicitação" },
         { value: "memorial_descritivo", label: "Memorial Descritivo" },
@@ -252,7 +252,7 @@ export default function Dashboard() {
                 >
                   <option value="">Selecione a concessionária</option>
                   <option value="edp">EDP</option>
-                  <option value="neoenergia_brasilia">NEOENERGIA BRASILIA</option>
+                  <option value="neoenergia">NEOENERGIA BRASILIA</option>
                 </select>
               </div>
 
