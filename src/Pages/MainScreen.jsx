@@ -1,61 +1,58 @@
-import { useState, useCallback } from "react";
-import { useDropzone } from "react-dropzone";
-import { FiUpload, FiDownload } from "react-icons/fi";
-import Header from "../Components/Header";
-import { useApp } from "../Context/AppContext";
+import { useState, useCallback } from "react"
+import { useDropzone } from "react-dropzone"
+import { FiUpload, FiDownload } from "react-icons/fi"
+import Header from "../Components/Header"
+import { useApp } from "../Context/AppContext"
 
 export default function Dashboard() {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [targetForm, setTargetForm] = useState("");
-  const [concessionaria, setConcessionaria] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState("");
-  const { processFile } = useApp();
+  const [selectedFile, setSelectedFile] = useState(null)
+  const [targetForm, setTargetForm] = useState("")
+  const [concessionaria, setConcessionaria] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+  const [message, setMessage] = useState("")
+  const { processFile } = useApp()
 
   const onDrop = useCallback((acceptedFiles) => {
-    const file = acceptedFiles[0];
-    if (!file.name.endsWith('.xlsx') && !file.name.endsWith('.xlsm')) {
-      setMessage("Por favor, envie um arquivo Excel (.xlsx ou .xlsm)");
-      return;
-    }
-    setSelectedFile(file);
-    setMessage("");
-  }, []);
+    setSelectedFile(acceptedFiles[0])
+    setMessage("")
+  }, [])
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
   const handleConcessionariaChange = (event) => {
-    setConcessionaria(event.target.value);
-    setTargetForm("");
-    setMessage("");
-  };
+    setConcessionaria(event.target.value)
+    setTargetForm("") // Reset the form selection when concessionária changes
+    setMessage("")
+  }
 
   const handleFormChange = (event) => {
-    setTargetForm(event.target.value);
-    setMessage("");
-  };
+    setTargetForm(event.target.value)
+    setMessage("")
+  }
 
   const handleSubmit = async () => {
     if (!selectedFile || !targetForm || !concessionaria) {
-      setMessage("Por favor, selecione um arquivo, uma concessionária e um formulário de destino.");
-      return;
+      setMessage("Por favor, selecione um arquivo, uma concessionária e um formulário de destino.")
+      return
     }
 
-    setIsLoading(true);
-    setMessage("");
+    setIsLoading(true)
+    setMessage("")
 
     try {
-      const concessionariaFormat = concessionaria === "edp" ? "edp" : "neoenergia";
-      await processFile(selectedFile, targetForm, concessionariaFormat);
-      setMessage("Arquivo baixado com sucesso!");
+      // Now passing the concessionaria as the format parameter
+      const concessionariaFormat = concessionaria === "edp" ? "edp" : "neoenergia"
+      await processFile(selectedFile, targetForm, concessionariaFormat)
+      setMessage("Arquivo gerado com sucesso!")
     } catch (error) {
-      console.error("Erro ao processar o arquivo:", error);
-      setMessage(`Erro ao baixar o arquivo: ${error.message}`);
+      console.error("Erro ao processar o arquivo:", error)
+      setMessage(`Erro ao processar o arquivo: ${error.message}`)
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
+  }
 
+  // Define document options based on selected concessionária
   const getDocumentOptions = () => {
     if (concessionaria === "edp") {
       return [
@@ -63,16 +60,16 @@ export default function Dashboard() {
         { value: "termo_de_aceite", label: "Termo de Aceite" },
         { value: "lista_de_rateio", label: "Lista de Rateio" },
         { value: "formulario_de_solicitacao_de_acesso", label: "Formulário de Solicitação de Acesso" },
-      ];
+      ]
     } else if (concessionaria === "neoenergia") {
       return [
         { value: "formulario_de_solicitacao", label: "Formulário de Solicitação" },
         { value: "memorial_descritivo", label: "Memorial Descritivo" },
         { value: "dados_central_geradora", label: "Dados da Central Geradora" },
-      ];
+      ]
     }
-    return [];
-  };
+    return []
+  }
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -83,9 +80,7 @@ export default function Dashboard() {
             <div className="bg-white shadow rounded-lg p-6">
               <div
                 {...getRootProps()}
-                className={`mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md ${
-                  isDragActive ? "border-green-500" : ""
-                }`}
+                className={`mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md ${isDragActive ? "border-green-500" : ""}`}
               >
                 <div className="space-y-1 text-center">
                   <FiUpload className="mx-auto h-12 w-12 text-gray-400" />
@@ -160,9 +155,7 @@ export default function Dashboard() {
 
               {message && (
                 <div
-                  className={`mt-4 text-center text-sm ${
-                    message.includes("sucesso") ? "text-green-600" : "text-red-600"
-                  }`}
+                  className={`mt-4 text-center text-sm ${message.includes("sucesso") ? "text-green-600" : "text-red-600"}`}
                 >
                   {message}
                 </div>
@@ -171,6 +164,7 @@ export default function Dashboard() {
           </div>
         </div>
       </main>
-    </div>
-  );
+    </div>
+  )
 }
+
