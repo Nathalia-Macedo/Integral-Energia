@@ -158,6 +158,7 @@ export function AppProvider({ children }) {
   };
 
   function retornarFormato(concessionaria, tipo) {
+    console.log(`Concessionária: ${concessionaria}, tipo ${tipo}`)
     const formularios = {
         edp: {
             formulario_de_solicitacao_de_acesso: "pdf",
@@ -165,11 +166,11 @@ export function AppProvider({ children }) {
             memorial_descritivo: "docx",
             termo_de_aceite: "xlsx"
         },
-        neoenergia_brasilia: {
+        neoenergia: {
             memorial_descritivo: "pdf"
         }
     };
-
+    console.log(formularios[concessionaria][tipo])
     return formularios[concessionaria][tipo];
 }
 
@@ -199,7 +200,7 @@ const processFile = async (file, targetForm, format) => {
       });
 
       console.log(response)
-  
+      console.log(`target form é ${targetForm} e format é ${format}`)
       // Verifica se a resposta é válida
       if (!response.ok) {
         const errorText = await response.text();
