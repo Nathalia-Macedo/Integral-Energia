@@ -161,13 +161,16 @@ export function AppProvider({ children }) {
     console.log(`Concessionária: ${concessionaria}, tipo ${tipo}`)
     const formularios = {
         edp: {
-            formulario_de_solicitacao_de_acesso: "pdf",
+            formulario_de_solicitacao: "pdf",
             lista_de_rateio: "xlsm",
             memorial_descritivo: "docx",
             termo_de_aceite: "xlsx"
         },
         neoenergia: {
-            memorial_descritivo: "pdf"
+            memorial_descritivo: "pdf",
+            formulario_de_solicitacao: "pdf",
+            dados_central_geradora: "pdf"
+
         }
     };
     console.log(formularios[concessionaria][tipo])
