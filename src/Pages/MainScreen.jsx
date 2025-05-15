@@ -66,6 +66,7 @@ export default function Dashboard() {
         { value: "formulario_de_solicitacao", label: "Formulário de Solicitação" },
         { value: "memorial_descritivo", label: "Memorial Descritivo" },
         { value: "dados_central_geradora", label: "Dados da Central Geradora" },
+        { value: "diagrama_unifilar", label: "Diagrama Unifilar" },
       ]
     }
     return []

@@ -169,7 +169,8 @@ export function AppProvider({ children }) {
         neoenergia: {
             memorial_descritivo: "pdf",
             formulario_de_solicitacao: "pdf",
-            dados_central_geradora: "pdf"
+            dados_central_geradora: "pdf",
+            diagrama_unifilar:"pdf"
 
         }
     };
