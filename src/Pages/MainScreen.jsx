@@ -68,6 +68,10 @@ export default function Dashboard() {
         { value: "dados_central_geradora", label: "Dados da Central Geradora" },
         { value: "diagrama_unifilar", label: "Diagrama Unifilar" },
       ]
+    }else if (concessionaria=="equatorial"){
+       return [
+        { value: "memorial_descritivo", label: "Memorial Descritivo" },
+      ]
     }
     return []
   }
@@ -113,6 +117,7 @@ export default function Dashboard() {
                   onChange={handleConcessionariaChange}
                 >
                   <option value="">Selecione a concessionária</option>
+                  <option value="equatorial">EQUATORIAL</option>
                   <option value="edp">EDP</option>
                   <option value="neoenergia">NEOENERGIA BRASILIA</option>
                 </select>
