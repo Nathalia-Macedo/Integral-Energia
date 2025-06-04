@@ -41,7 +41,9 @@ export default function Dashboard() {
 
     try {
       // Now passing the concessionaria as the format parameter
-      const concessionariaFormat = concessionaria === "edp" ? "edp" : "neoenergia"
+    const concessionariaFormat = ["edp", "neoenergia", "equatorial"].includes(concessionaria)
+  ? concessionaria
+  : "";
       await processFile(selectedFile, targetForm, concessionariaFormat)
       setMessage("Arquivo gerado com sucesso!")
     } catch (error) {
