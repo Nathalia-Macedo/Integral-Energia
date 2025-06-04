@@ -172,6 +172,8 @@ export function AppProvider({ children }) {
             dados_central_geradora: "pdf",
             diagrama_unifilar:"pdf"
 
+        },equatorial:{
+          memorial_descritivo: "docx",
         }
     };
     console.log(formularios[concessionaria][tipo])

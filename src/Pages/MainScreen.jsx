@@ -68,7 +68,7 @@ export default function Dashboard() {
         { value: "dados_central_geradora", label: "Dados da Central Geradora" },
         { value: "diagrama_unifilar", label: "Diagrama Unifilar" },
       ]
-    }else if (concessionaria=="equatorial"){
+    }else if (concessionaria==="equatorial"){
        return [
         { value: "memorial_descritivo", label: "Memorial Descritivo" },
       ]
